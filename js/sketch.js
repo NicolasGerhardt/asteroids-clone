@@ -54,7 +54,12 @@ function draw() {
     pop();
   }
 
-  
+  push();
+  noFill();
+  stroke(100);
+  strokeWeight(10);
+  rect(playArea.left, playArea.top, playArea.right - playArea.left, playArea.bottom - playArea.top);
+  pop();
 
   
   ship.show();
