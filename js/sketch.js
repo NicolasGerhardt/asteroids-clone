@@ -8,8 +8,9 @@ let playArea = {
 
 let stars = [];
 let bullets = [];
+let asteroids = [];
 
-let targetZoom = 1;
+let targetZoom = 0.5;
 let currentZoom = 0;
 
 function setup() {
@@ -33,10 +34,30 @@ function setup() {
       ));
   }
 
+  for(let i = 0; i < 20; i++) {
+    asteroids.push(new Asteroid(
+      random(playArea.left, playArea.right),
+      random(playArea.top, playArea.bottom),
+      random(-5, 5),
+      random(-5, 5),
+      7
+      ));
+  }
+
 }
 
 function draw() {
   ship.update();
+
+  for(let i = 0; i < asteroids.length; i++) {
+    asteroids[i].update();
+  }
+
+  for(let i = asteroids.length -1; i >= 0; i--) {
+    if(asteroids[i].remove) {
+      asteroids.splice(i, 1);
+    }
+  }
 
   for(let i = 0; i < bullets.length; i++) {
     bullets[i].update();
@@ -69,7 +90,11 @@ function draw() {
     bullets[i].show();
   }
 
+  ship.show();
 
+  for(let i = 0; i < asteroids.length; i++) {
+    asteroids[i].show();
+  }
 
   push();
   noFill();
@@ -78,11 +103,7 @@ function draw() {
   rect(playArea.left, playArea.top, playArea.right - playArea.left, playArea.bottom - playArea.top);
   pop();
 
-
-
   
-  ship.show();
-
 }
 
 function keyPressed(){
@@ -119,7 +140,7 @@ function keyReleased() {
       ship.stopClockwise();
       break;
     case 189:
-      targetZoom = 1;
+      targetZoom = 0.5;
       break;
   }
 }

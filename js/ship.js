@@ -1,6 +1,6 @@
 const SHIP_THRUST = 0.1;
 const SHIP_MAX_SPEED = 10;
-const SHIP_SPIN_SPEED = 0.05;
+const SHIP_SPIN_SPEED = 0.1;
 const SHIP_SIZE = 10;
 
 class Ship {
@@ -70,8 +70,8 @@ class Ship {
     fill(128);
     beginShape();
     vertex(           0,-SHIP_SIZE);
-    vertex(-SHIP_SIZE/2, SHIP_SIZE);
-    vertex( SHIP_SIZE/2, SHIP_SIZE);
+    vertex(-SHIP_SIZE/2, SHIP_SIZE/2);
+    vertex( SHIP_SIZE/2, SHIP_SIZE/2);
     endShape(CLOSE);
 
     pop();
