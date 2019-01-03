@@ -13,19 +13,19 @@ let targetZoom = 1;
 let currentZoom = 0;
 
 function setup() {
-  createCanvas(800,800);
+  createCanvas(600, 600);
   
   //create ship
   ship = new Ship(0,0);
 
   //setup play area
-  playArea.top = height * -2 ;
-  playArea.bottom = height * 2;
-  playArea.left = width * -2;
-  playArea.right = width * 2;
+  playArea.top = height * -5 ;
+  playArea.bottom = height * 5;
+  playArea.left = width * -5;
+  playArea.right = width * 5;
 
 
-  for(let i = 0; i < 100; i++) {
+  for(let i = 0; i < 500; i++) {
     stars.push(createVector(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),
