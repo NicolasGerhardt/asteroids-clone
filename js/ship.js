@@ -3,33 +3,38 @@ const SHIP_MAX_SPEED = 15;
 const SHIP_SPIN_SPEED = 0.05;
 const SHIP_SIZE = 10;
 
-function Ship(_x, _y) {
-  this.x = _x;
-  this.y = _y;
-  this.heading = 0;
+class Ship {
+  constructor(x,y) {
+  this.pos = createVector(x, y);
+  this.vel = createVector(1,1);
+  this.acc = createVector();
   this.thrusting = false;
   this.clockwise = false;
   this.counterClockwise = false;
+  this.faceing = 0;
+  }
 
+  update() {
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
 
-  this.move = function() {
-    if (this.counterClockwise) {
-      this.heading -= SHIP_SPIN_SPEED;
+    if (this.pos.x < playArea.left) {
+      this.pos.x = playArea.left;
+    } else if (this.pos.x > playArea.right) {
+      this.pos.x = playArea.right;
     }
-
-    if (this.clockwise) {
-      this.heading += SHIP_SPIN_SPEED;
+    if (this.pos.y < playArea.top) {
+      this.pos.y = playArea.top;
+    } else if (this.pos.y > playArea.bottom) {
+      this.pos.y = playArea.bottom;
     }
-    
+  }
 
-
-
-  }// end move funciton
-
-  this.draw = function() {
+  show() {
     push();
-    translate(this.x, this.y);
-    rotate(this.heading);
+    translate(this.pos.x, this.pos.y);
+    rotate(this.faceing);
 
     if (this.thrusting) {
       fill("red");
@@ -47,31 +52,31 @@ function Ship(_x, _y) {
 
     pop();
 
-  } // end draw funciton
+  }
 
-this.startClockwise = function() {
-    this.clockwise = true;
+  startClockwise() {
+      this.clockwise = true;
+
+  }
+
+  stopClockwise() {
+    this.clockwise = false;
+  }
+
+  startCounterClockwise() {
+    this.counterClockwise = true;
+  }
+
+  stopCounterClockwise() {
+    this.counterClockwise = false;
+  }
+
+  startThrust() {
+    this.thrusting = true;
+  }
+
+  stopThrust() {
+    this.thrusting = false;
+  }
 
 }
-
-this.stopClockwise = function() {
-  this.clockwise = false;
-}
-
-this.startCounterClockwise = function() {
-  this.counterClockwise = true;
-}
-
-this.stopCounterClockwise = function() {
-  this.counterClockwise = false;
-}
-
-this.startThrust = function() {
-  this.thrusting = true;
-}
-
-this.stopThrust = function() {
-  this.thrusting = false;
-}
-
-}// end ship class
