@@ -7,6 +7,7 @@ let playArea = {
 }
 
 let stars = [];
+let bullets = [];
 
 let targetZoom = 1;
 let currentZoom = 0;
@@ -37,6 +38,16 @@ function setup() {
 function draw() {
   ship.update();
 
+  for(let i = 0; i < bullets.length; i++) {
+    bullets[i].update();
+  }
+
+  for(let i = bullets.length -1; i >= 0; i--) {
+    if(bullets[i].dead) {
+      bullets.splice(i, 1);
+    }
+  }
+
   background(12);
   translate(width/2, height/2);
   currentZoom = lerp(currentZoom, targetZoom, 0.1);
@@ -54,6 +65,12 @@ function draw() {
     pop();
   }
 
+  for(let i = 0; i < bullets.length; i++) {
+    bullets[i].show();
+  }
+
+
+
   push();
   noFill();
   stroke(100);
@@ -61,18 +78,18 @@ function draw() {
   rect(playArea.left, playArea.top, playArea.right - playArea.left, playArea.bottom - playArea.top);
   pop();
 
+
+
   
   ship.show();
 
 }
 
 function keyPressed(){
-  //ship.thrusting = (ship.thrusting == false); //toggles true/false
   switch (keyCode) {
     case UP_ARROW:
       ship.startThrust();;
       break;
-    
     case LEFT_ARROW:
       ship.startCounterClockwise();
       break;
@@ -81,6 +98,9 @@ function keyPressed(){
       break;
     case 189:
       targetZoom = 0.1;
+      break;
+    case SHIFT:
+      bullets.push(new Bullet(ship.pos.x, ship.pos.y, ship.faceing));
       break;
     default:
       console.log(keyCode);

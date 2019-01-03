@@ -6,7 +6,7 @@ const SHIP_SIZE = 10;
 class Ship {
   constructor(x,y) {
   this.pos = createVector(x, y);
-  this.vel = createVector(1,1);
+  this.vel = createVector();
   this.acc = createVector();
   this.clockwise = false;
   this.counterClockwise = false;
