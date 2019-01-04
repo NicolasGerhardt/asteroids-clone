@@ -20,13 +20,13 @@ function setup() {
   ship = new Ship(0,0);
 
   //setup play area
-  playArea.top = height * -5 ;
-  playArea.bottom = height * 5;
-  playArea.left = width * -5;
-  playArea.right = width * 5;
+  playArea.top = height * -4;
+  playArea.bottom = height * 4;
+  playArea.left = width * -4;
+  playArea.right = width * 4;
 
 
-  for(let i = 0; i < 500; i++) {
+  for(let i = 0; i < 100; i++) {
     stars.push(createVector(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),
@@ -34,7 +34,7 @@ function setup() {
       ));
   }
 
-  for(let i = 0; i < 20; i++) {
+  for(let i = 0; i < 5; i++) {
     asteroids.push(new Asteroid(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),

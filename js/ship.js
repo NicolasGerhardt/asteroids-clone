@@ -39,19 +39,23 @@ class Ship {
 
     this.pos.add(this.vel);
 
-    if (this.pos.x < playArea.left) {
+    if (this.pos.x <= playArea.left) {
       this.pos.x = playArea.left;
       this.vel.x = 0;
-    } else if (this.pos.x > playArea.right) {
+      this.vel.y *= 0.99;
+    } else if (this.pos.x >= playArea.right) {
       this.pos.x = playArea.right;
       this.vel.x = 0;
+      this.vel.y *= 0.99;
     }
-    if (this.pos.y < playArea.top) {
+    if (this.pos.y <= playArea.top) {
       this.pos.y = playArea.top;
       this.vel.y = 0;
-    } else if (this.pos.y > playArea.bottom) {
+      this.vel.x *= 0.99;
+    } else if (this.pos.y >= playArea.bottom) {
       this.pos.y = playArea.bottom;
       this.vel.y = 0;
+      this.vel.x *= 0.99;
     }
   }
 
