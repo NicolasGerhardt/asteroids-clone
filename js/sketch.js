@@ -30,13 +30,13 @@ function setup() {
   ship = new Ship(0,0);
 
   //setup play area
-  playArea.top = height * -4;
-  playArea.bottom = height * 4;
-  playArea.left = width * -4;
-  playArea.right = width * 4;
+  playArea.top = height * -40;
+  playArea.bottom = height * 40;
+  playArea.left = width * -40;
+  playArea.right = width * 40;
 
 
-  for(let i = 0; i < 1000; i++) {
+  for(let i = 0; i < 20000; i++) {
     stars.push(createVector(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),
@@ -44,7 +44,7 @@ function setup() {
       ));
   }
 
-  for(let i = 0; i < 20; i++) {
+  for(let i = 0; i < 2000; i++) {
     generateRandomAsteroid();
   }
 
@@ -87,6 +87,7 @@ function draw() {
   // ellipse(ship.pos.x, ship.pos.y, renderSpace * 2, renderSpace * 2);
   // pop();
 
+  //Render stars
   for(let i = 0; i < stars.length; i++) {
     let star = stars[i];
     let d = dist(ship.pos.x, ship.pos.y, star.x, star.y);
@@ -100,19 +101,22 @@ function draw() {
     }
   }
 
+  //render bullets
   for(let i = 0; i < bullets.length; i++) {
     bullets[i].show();
   }
 
+  //render ship
   ship.show();
 
+  //render asteroids
   for(let i = 0; i < asteroids.length; i++) {
     asteroids[i].show();
   }
 
   push();
   noFill();
-  stroke(100);
+  stroke(100, 100);
   strokeWeight(10);
   rect(playArea.left, playArea.top, playArea.right - playArea.left, playArea.bottom - playArea.top);
   pop();

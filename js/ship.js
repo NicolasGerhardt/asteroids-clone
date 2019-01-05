@@ -1,4 +1,5 @@
 const SHIP_THRUST = 1;
+const SHIP_MAX_THRUST = 1;
 const SHIP_MAX_SPEED = 100;
 const SHIP_SPIN_SPEED = 0.1;
 const SHIP_SIZE = 30;
@@ -12,6 +13,7 @@ class Ship {
   this.counterClockwise = false;
   this.faceing = 0;
   this.thrusterOn = false;
+  this.currentThrust = 0;
   }
 
   update() {
@@ -25,10 +27,12 @@ class Ship {
     }
 
     if(this.thrusterOn) {
-      this.acc = createVector(0, -SHIP_THRUST);
+      this.currentThrust = lerp(this.currentThrust, SHIP_MAX_THRUST, 0.1);
+      this.acc = createVector(0, -this.currentThrust);
       this.acc.rotate(this.faceing);
     } else {
       this.acc.mult(0);
+      this.currentThrust = 0;
     }
 
     this.vel.add(this.acc);
@@ -65,18 +69,25 @@ class Ship {
     rotate(this.faceing);
 
     if (this.thrusterOn) {
-      fill("red");
+      fill(255,255,0);
       noStroke();
       //rect( -SHIP_SIZE/4,SHIP_SIZE/2, SHIP_SIZE/2,SHIP_SIZE);
+      let thrustSize = this.currentThrust / SHIP_MAX_THRUST;
       beginShape();
       vertex( -SHIP_SIZE/4, SHIP_SIZE/2);
       vertex( SHIP_SIZE/4, SHIP_SIZE/2);
-      vertex( 0, SHIP_SIZE * 3);
+      vertex( 0, SHIP_SIZE * 3 * thrustSize);
+      endShape();
+      fill(255,0,0);
+      beginShape();
+      vertex( -SHIP_SIZE/5, SHIP_SIZE/2);
+      vertex( SHIP_SIZE/5, SHIP_SIZE/2);
+      vertex( 0, SHIP_SIZE * 2 * thrustSize);
       endShape();
     }
 
     stroke(128);
-    fill(128);
+    fill(255,105,180);
     beginShape();
     vertex(           0,-SHIP_SIZE);
     vertex(-SHIP_SIZE/2, SHIP_SIZE/2);
