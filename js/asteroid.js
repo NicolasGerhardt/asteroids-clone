@@ -23,8 +23,9 @@ class Asteroid {
     this.pos.add(this.vel);
 
     this.collisionCheck();
-
-    this.rad = lerp(this.rad, 2**this.r, 0.1);
+    if (this.rad != 2**this.r) {
+      this.rad = lerp(this.rad, 2**this.r, 0.1);
+    }
 
   }
 

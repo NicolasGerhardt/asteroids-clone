@@ -75,7 +75,9 @@ function draw() {
 
   background(12);
   translate(width/2, height/2);
-  currentZoom = lerp(currentZoom, targetZoom, 0.1);
+  if (currentZoom != targetZoom) {
+    currentZoom = lerp(currentZoom, targetZoom, 0.1);
+  }
   scale(currentZoom);
   translate(-ship.pos.x, -ship.pos.y)
   
