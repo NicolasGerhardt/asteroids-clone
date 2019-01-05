@@ -45,6 +45,8 @@ function setup() {
   }
 
   for(let i = 0; i < 20; i++) {
+    let x = random(playArea.left, playArea.right);
+
     asteroids.push(new Asteroid(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),

@@ -23,6 +23,9 @@ class Bullet {
     translate(this.pos.x, this.pos.y);
     rotate(this.vel.heading() + PI/2);
     line(0, 0, 0, -this.vel.mag());
+    strokeWeight(20);
+    stroke(200,0,0);
+    point(0,0);
     pop();
   }
 
