@@ -29,24 +29,26 @@ class Asteroid {
   }
 
   show() {
-    push();
-    translate(this.pos.x, this.pos.y);
-    noStroke();
-    fill(50, 100, 50);
-    ellipse(0,0, this.rad, this.rad);
-
-    pop();
+    let d = dist(this.pos.x, this.pos.y, ship.pos.x, ship.pos.y);
+    if(d - this.rad < renderSpace) {
+      push();
+      translate(this.pos.x, this.pos.y);
+      noStroke();
+      fill(50, 100, 50);
+      ellipse(0,0, this.rad * 2, this.rad * 2);
+      pop();
+    }
   }
 
   collisionCheck() {
     for (let i = 0; i < bullets.length; i++) {
       let bullet = bullets[i];
       let d = dist(bullet.pos.x, bullet.pos.y, this.pos.x, this.pos.y);
-      if (this.rad/2 > d) {
+      if (this.rad > d) {
         this.r--;
         bullets[i].dead = true;
         this.vel.rotate(PI/2);
-        this.vel.setMag(this.vel.mag()*2);
+        this.vel.setMag(this.vel.mag()*1.5);
       }
 
     }

@@ -13,8 +13,18 @@ let asteroids = [];
 let targetZoom = 0.5;
 let currentZoom = 0;
 
+let renderSpace;
+
 function setup() {
   createCanvas(windowWidth, windowHeight - 4);
+
+  if (width > height) {
+    renderSpace = width *2;
+  } else {
+    renderSpace = height;
+  }
+
+  renderSpace *= 1.2;
   
   //create ship
   ship = new Ship(0,0);
@@ -34,13 +44,13 @@ function setup() {
       ));
   }
 
-  for(let i = 0; i < 16; i++) {
+  for(let i = 0; i < 20; i++) {
     asteroids.push(new Asteroid(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),
       random(-5, 5),
       random(-5, 5),
-      10
+      random(6,10)
       ));
   }
 
@@ -75,15 +85,25 @@ function draw() {
   scale(currentZoom);
   translate(-ship.pos.x, -ship.pos.y)
   
+  //visualize renderSpace
+  push();
+  noFill();
+  stroke(200,0,0);
+  strokeWeight(5);
+  ellipse(ship.pos.x, ship.pos.y, renderSpace * 2, renderSpace * 2);
+  pop();
 
   for(let i = 0; i < stars.length; i++) {
     let star = stars[i];
-    push();
-    noFill();
-    stroke(100);
-    strokeWeight(star.z);
-    point(star.x, star.y);
-    pop();
+    let d = dist(ship.pos.x, ship.pos.y, star.x, star.y);
+    if (d < renderSpace) {
+      push();
+      noFill();
+      stroke(100);
+      strokeWeight(star.z);
+      point(star.x, star.y);
+      pop();
+    }
   }
 
   for(let i = 0; i < bullets.length; i++) {
@@ -121,7 +141,7 @@ function keyPressed(){
       targetZoom = 0.1;
       break;
     case SHIFT:
-      bullets.push(new Bullet(ship.pos.x, ship.pos.y, ship.vel.mag(), ship.faceing));
+      ship.fire();
       break;
     default:
       console.log(keyCode);
