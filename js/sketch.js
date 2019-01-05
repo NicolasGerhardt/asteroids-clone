@@ -14,7 +14,7 @@ let targetZoom = 0.5;
 let currentZoom = 0;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(windowWidth, windowHeight - 4);
   
   //create ship
   ship = new Ship(0,0);
@@ -26,7 +26,7 @@ function setup() {
   playArea.right = width * 4;
 
 
-  for(let i = 0; i < 100; i++) {
+  for(let i = 0; i < 1000; i++) {
     stars.push(createVector(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),
@@ -34,13 +34,13 @@ function setup() {
       ));
   }
 
-  for(let i = 0; i < 5; i++) {
+  for(let i = 0; i < 16; i++) {
     asteroids.push(new Asteroid(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),
       random(-5, 5),
       random(-5, 5),
-      7
+      10
       ));
   }
 
@@ -121,7 +121,7 @@ function keyPressed(){
       targetZoom = 0.1;
       break;
     case SHIFT:
-      bullets.push(new Bullet(ship.pos.x, ship.pos.y, ship.faceing));
+      bullets.push(new Bullet(ship.pos.x, ship.pos.y, ship.vel.mag(), ship.faceing));
       break;
     default:
       console.log(keyCode);

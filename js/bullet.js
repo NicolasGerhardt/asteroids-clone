@@ -1,7 +1,7 @@
 class Bullet {
-  constructor(x, y, facing) {
+  constructor(x, y, mag, facing) {
     this.pos = createVector(x, y);
-    this.vel = createVector(0, -20);
+    this.vel = createVector(0, -mag - 20);
     this.vel.rotate(facing);
     this.dead = false;
   }
@@ -22,7 +22,7 @@ class Bullet {
     strokeWeight(3);
     translate(this.pos.x, this.pos.y);
     rotate(this.vel.heading() + PI/2);
-    line(0, 0, 0, -20);
+    line(0, 0, 0, -this.vel.mag());
     pop();
   }
 

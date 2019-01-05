@@ -1,7 +1,7 @@
-const SHIP_THRUST = 0.1;
-const SHIP_MAX_SPEED = 10;
+const SHIP_THRUST = 1;
+const SHIP_MAX_SPEED = 100;
 const SHIP_SPIN_SPEED = 0.1;
-const SHIP_SIZE = 10;
+const SHIP_SIZE = 30;
 
 class Ship {
   constructor(x,y) {
@@ -67,7 +67,12 @@ class Ship {
     if (this.thrusterOn) {
       fill("red");
       noStroke();
-      rect( -SHIP_SIZE/4,SHIP_SIZE, SHIP_SIZE/2,SHIP_SIZE);
+      //rect( -SHIP_SIZE/4,SHIP_SIZE/2, SHIP_SIZE/2,SHIP_SIZE);
+      beginShape();
+      vertex( -SHIP_SIZE/4, SHIP_SIZE/2);
+      vertex( SHIP_SIZE/4, SHIP_SIZE/2);
+      vertex( 0, SHIP_SIZE * 3);
+      endShape();
     }
 
     stroke(128);

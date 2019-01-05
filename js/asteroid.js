@@ -3,7 +3,7 @@ class Asteroid {
     this.pos = createVector(x,y);
     this.vel = createVector(dx, dy);
     this.r = r;
-    this.rad = 2**this.r;;
+    this.rad = 2**this.r;
     this.remove = false;
     }
 
@@ -18,11 +18,13 @@ class Asteroid {
 
     this.pos.add(this.vel);
 
-    if (this.r < 4) {
+    if (this.r < 5) {
       this.remove = true;
     }
 
     this.collisionCheck();
+
+    this.rad = lerp(this.rad, 2**this.r, 0.1);
 
   }
 
@@ -30,7 +32,7 @@ class Asteroid {
     push();
     translate(this.pos.x, this.pos.y);
     noStroke();
-    fill(200);
+    fill(50, 100, 50);
     ellipse(0,0, this.rad, this.rad);
 
     pop();
@@ -40,10 +42,11 @@ class Asteroid {
     for (let i = 0; i < bullets.length; i++) {
       let bullet = bullets[i];
       let d = dist(bullet.pos.x, bullet.pos.y, this.pos.x, this.pos.y);
-      if (this.rad > d) {
+      if (this.rad/2 > d) {
         this.r--;
-        this.rad = 2**this.r;
         bullets[i].dead = true;
+        this.vel.rotate(PI/2);
+        this.vel.setMag(this.vel.mag()*2);
       }
 
     }
