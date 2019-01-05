@@ -64,3 +64,20 @@ class Asteroid {
   }
 
 }
+
+function generateRandomAsteroid() {
+  if (ship != null) {
+    let done = false;
+    while(!done) {
+      let x = random(playArea.left, playArea.right);
+      let y = random(playArea.top, playArea.bottom)
+      let d = dist(ship.pos.x, ship.pos.y, x, y);
+      if (d > renderSpace) {
+        asteroids.push(new Asteroid(x,y, 
+          random(-5, 5), random(-5, 5), random(6,10)
+          ));
+        done = true;
+      }
+    }
+  }
+}

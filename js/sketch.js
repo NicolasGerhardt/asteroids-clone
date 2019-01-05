@@ -45,15 +45,7 @@ function setup() {
   }
 
   for(let i = 0; i < 20; i++) {
-    let x = random(playArea.left, playArea.right);
-
-    asteroids.push(new Asteroid(
-      random(playArea.left, playArea.right),
-      random(playArea.top, playArea.bottom),
-      random(-5, 5),
-      random(-5, 5),
-      random(6,10)
-      ));
+    generateRandomAsteroid();
   }
 
 }
@@ -142,6 +134,7 @@ function keyPressed(){
     case 189:
       targetZoom = 0.1;
       break;
+    case 32:
     case SHIFT:
       ship.fire();
       break;
