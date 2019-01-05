@@ -113,4 +113,8 @@ class Ship {
     this.thrusterOn = false;
   }
 
+  fire() {
+    bullets.push(new Bullet(this.pos.x, this.pos.y, this.vel.mag(), this.faceing));
+  }
+
 }
