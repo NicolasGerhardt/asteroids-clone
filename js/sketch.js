@@ -86,12 +86,12 @@ function draw() {
   translate(-ship.pos.x, -ship.pos.y)
   
   //visualize renderSpace
-  push();
-  noFill();
-  stroke(200,0,0);
-  strokeWeight(5);
-  ellipse(ship.pos.x, ship.pos.y, renderSpace * 2, renderSpace * 2);
-  pop();
+  // push();
+  // noFill();
+  // stroke(200,0,0);
+  // strokeWeight(5);
+  // ellipse(ship.pos.x, ship.pos.y, renderSpace * 2, renderSpace * 2);
+  // pop();
 
   for(let i = 0; i < stars.length; i++) {
     let star = stars[i];
