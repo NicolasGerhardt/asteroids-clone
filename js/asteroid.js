@@ -9,10 +9,14 @@ class Asteroid {
 
   update() {
 
-    if (this.pos.x < playArea.left || this.pos.x > playArea.right) {
+    if (this.pos.x - this.rad < playArea.left || 
+        this.pos.x + this.rad > playArea.right) {
+
       this.vel.x *= -1;
     }
-    if (this.pos.y < playArea.top || this.pos.y > playArea.bottom) {
+    if (this.pos.y - this.rad < playArea.top || 
+        this.pos.y + this.rad > playArea.bottom) {
+
       this.vel.y *= -1;
     }
 
@@ -69,13 +73,15 @@ function generateRandomAsteroid() {
   if (ship != null) {
     let done = false;
     while(!done) {
-      let x = random(playArea.left, playArea.right);
-      let y = random(playArea.top, playArea.bottom)
+      let r = random(6,10);
+      let buffer = (2**r) * 2
+      let x = random(playArea.left + buffer, playArea.right - buffer);
+      let y = random(playArea.top + buffer, playArea.bottom - buffer);
+      let dx = random(-5, 5);
+      let dy = random(-5, 5);
       let d = dist(ship.pos.x, ship.pos.y, x, y);
       if (d > renderSpace) {
-        asteroids.push(new Asteroid(x,y, 
-          random(-5, 5), random(-5, 5), random(6,10)
-          ));
+        asteroids.push(new Asteroid(x,y, dx,dy ,r));
         done = true;
       }
     }
