@@ -9,26 +9,23 @@ class Asteroid {
 
   update() {
 
-    if (this.pos.x + this.rad <= playArea.left) {
+    if (this.pos.x - this.rad < playArea.left) {
       this.pos.x = playArea.left + this.rad;
-      this.vel.x = 0;
-      this.vel.y *= 0.8;
-    } else if (this.pos.x -this.rad >= playArea.right) {
-      this.pos.x = playArea.right - this.rad ;
-      this.vel.x = 0;
-      this.vel.y *= -0.8;
+      this.vel.x *= -1;
+    } else if (this.pos.x + this.rad > playArea.right) {
+      this.pos.x = playArea.right - this.rad;
+      this.vel.x *= -1;
     }
-    if (this.pos.y + this.rad <= playArea.top) {
-      this.pos.y = playArea.top + this.rad ;
-      this.vel.y = 0;
-      this.vel.x *= 0.8;
-    } else if (this.pos.y - this.rad >= playArea.bottom) {
-      this.pos.y = playArea.bottom - this.rad ;
-      this.vel.y *= -0.8;
+    if (this.pos.y - this.rad < playArea.top) {
+      this.pos.y = playArea.top + this.rad;
+      this.vel.y *= -1;
+    } else if (this.pos.y + this.rad > playArea.bottom) {
+      this.pos.y = playArea.bottom - this.rad;
+      this.vel.y *= -1;
     }
 
     if (this.vel.mag() > SHIP_MAX_SPEED * 2) {
-      this.vel.setMag(SHIP_MAX_SPEED * 2);
+      this.vel.setMag(SHIP_MAX_SPEED);
     }
 
     this.pos.add(this.vel);
@@ -67,6 +64,9 @@ class Asteroid {
           this.vel.setMag(this.vel.mag()*1.5);
           let newAsterVel = createVector(this.vel.x, this.vel.y);
           newAsterVel.setMag(newAsterVel.mag() * -1);
+          let newAsterPos = createVector(this.pos.x, this.pos.y);
+          this.pos.add(this.vel);
+          newAsterPos.add(newAsterVel);
           asteroids.push(new Asteroid(
             this.pos.x, this.pos.y,
             newAsterVel.x, newAsterVel.y,
