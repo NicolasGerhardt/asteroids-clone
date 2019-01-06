@@ -51,10 +51,10 @@ class Asteroid {
       let bullet = bullets[i];
       let d = dist(bullet.pos.x, bullet.pos.y, this.pos.x, this.pos.y);
       if (this.rad > d) {
-        bullets[i].dead = true;
+        bullets[i].remove = true;
         this.targetRad = sqrt(((PI*this.rad*this.rad)/2)/PI);
         if (this.targetRad < 50) {
-        this.dead = true;
+        this.remove = true;
         } else {
           bullets[i].vel.setMag(this.vel.mag());
           this.vel = bullets[i].vel;

@@ -3,7 +3,7 @@ class Bullet {
     this.pos = createVector(x, y);
     this.vel = createVector(0, -SHIP_MAX_SPEED * 1.2);
     this.vel.rotate(facing);
-    this.dead = false;
+    this.remove = false;
   }
 
   update() {
@@ -11,7 +11,7 @@ class Bullet {
 
     if (this.pos.x < playArea.left || this.pos.x > playArea.right ||
         this.pos.y < playArea.top || this.pos.y > playArea.bottom) {
-      this.dead = true;
+      this.remove = true;
     }
   }
 
