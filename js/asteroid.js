@@ -9,17 +9,22 @@ class Asteroid {
 
   update() {
 
-    if (this.pos.x - this.rad < playArea.left || 
-        this.pos.x + this.rad > playArea.right) {
-
-      this.vel.x *= -1;
-      this.pos.x += this.vel.x * 2;
+    if (this.pos.x + this.rad <= playArea.left) {
+      this.pos.x = playArea.left + this.rad;
+      this.vel.x = 0;
+      this.vel.y *= 0.8;
+    } else if (this.pos.x -this.rad >= playArea.right) {
+      this.pos.x = playArea.right - this.rad ;
+      this.vel.x = 0;
+      this.vel.y *= -0.8;
     }
-    if (this.pos.y - this.rad < playArea.top || 
-        this.pos.y + this.rad > playArea.bottom) {
-
-      this.vel.y *= -1;
-      this.pos.y += this.vel.y * 2;
+    if (this.pos.y + this.rad <= playArea.top) {
+      this.pos.y = playArea.top + this.rad ;
+      this.vel.y = 0;
+      this.vel.x *= 0.8;
+    } else if (this.pos.y - this.rad >= playArea.bottom) {
+      this.pos.y = playArea.bottom - this.rad ;
+      this.vel.y *= -0.8;
     }
 
     if (this.vel.mag() > SHIP_MAX_SPEED * 2) {
