@@ -73,8 +73,8 @@ function draw() {
   }
 
   for(let i = bullets.length -1; i >= 0; i--) {
-    if(bullets[i].dead) {
-      bullets.splice(i, 1);
+    if(bullets[i].remove) {
+      bullets.splice(i,1);
     }
   }
 
