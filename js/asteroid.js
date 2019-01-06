@@ -1,9 +1,9 @@
 class Asteroid {
-  constructor(x, y, dx, dy, r) {
+  constructor(x, y, dx, dy, rad) {
     this.pos = createVector(x,y);
     this.vel = createVector(dx, dy);
-    this.r = r;
-    this.rad = 2**this.r;
+    this.rad = rad;
+    this.targetRad = rad;
     this.remove = false;
     }
 
@@ -13,19 +13,24 @@ class Asteroid {
         this.pos.x + this.rad > playArea.right) {
 
       this.vel.x *= -1;
+      this.pos.x += this.vel.x * 2;
     }
     if (this.pos.y - this.rad < playArea.top || 
         this.pos.y + this.rad > playArea.bottom) {
 
       this.vel.y *= -1;
+      this.pos.y += this.vel.y * 2;
+    }
+
+    if (this.vel.mag() > SHIP_MAX_SPEED * 2) {
+      this.vel.setMag(SHIP_MAX_SPEED * 2);
     }
 
     this.pos.add(this.vel);
 
+    this.rad = lerp(this.rad, this.targetRad, 0.1);
+
     this.collisionCheck();
-    if (this.rad != 2**this.r) {
-      this.rad = lerp(this.rad, 2**this.r, 0.1);
-    }
 
   }
 
@@ -47,9 +52,9 @@ class Asteroid {
       let d = dist(bullet.pos.x, bullet.pos.y, this.pos.x, this.pos.y);
       if (this.rad > d) {
         bullets[i].dead = true;
-        this.r--;
-        if (this.r < 5) {
-        this.remove = true;
+        this.targetRad = sqrt(((PI*this.rad*this.rad)/2)/PI);
+        if (this.targetRad < 50) {
+        this.dead = true;
         } else {
           bullets[i].vel.setMag(this.vel.mag());
           this.vel = bullets[i].vel;
@@ -60,7 +65,7 @@ class Asteroid {
           asteroids.push(new Asteroid(
             this.pos.x, this.pos.y,
             newAsterVel.x, newAsterVel.y,
-            this.r
+            this.targetRad
             ));
         }
       }
@@ -75,8 +80,8 @@ function generateRandomAsteroid() {
     let attempts = 0;
     while(attempts < 1000) {
       attempts++;
-      let r = random(6,10);
-      let buffer = (2**r) * 2
+      let r = random(60, 1000);
+      let buffer = r * 2
       let x = random(playArea.left + buffer, playArea.right - buffer);
       let y = random(playArea.top + buffer, playArea.bottom - buffer);
       let dx = random(-5, 5);

@@ -1,6 +1,6 @@
 const SHIP_THRUST = 1;
 const SHIP_MAX_THRUST = 1;
-const SHIP_MAX_SPEED = 100;
+const SHIP_MAX_SPEED = 20;
 const SHIP_SPIN_SPEED = 0.1;
 const SHIP_SIZE = 20;
 

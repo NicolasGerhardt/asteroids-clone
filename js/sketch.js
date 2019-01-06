@@ -6,7 +6,7 @@ let playArea = {
   right: 0
 }
 
-let playAreaSizeFactor = 10;
+let playAreaSizeFactor = 2;
 
 let stars = [];
 let bullets = [];

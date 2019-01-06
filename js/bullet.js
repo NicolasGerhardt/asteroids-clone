@@ -1,7 +1,7 @@
 class Bullet {
   constructor(x, y, mag, facing) {
     this.pos = createVector(x, y);
-    this.vel = createVector(0, -mag - 20);
+    this.vel = createVector(0, -SHIP_MAX_SPEED * 1.2);
     this.vel.rotate(facing);
     this.dead = false;
   }
