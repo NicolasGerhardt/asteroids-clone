@@ -72,8 +72,9 @@ class Asteroid {
 
 function generateRandomAsteroid() {
   if (ship != null) {
-    let done = false;
-    while(!done) {
+    let attempts = 0;
+    while(attempts < 1000) {
+      attempts++;
       let r = random(6,10);
       let buffer = (2**r) * 2
       let x = random(playArea.left + buffer, playArea.right - buffer);
@@ -83,7 +84,7 @@ function generateRandomAsteroid() {
       let d = dist(ship.pos.x, ship.pos.y, x, y);
       if (d > renderSpace) {
         asteroids.push(new Asteroid(x,y, dx,dy ,r));
-        done = true;
+        break;
       }
     }
   }

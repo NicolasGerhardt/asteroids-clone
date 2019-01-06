@@ -6,6 +6,8 @@ let playArea = {
   right: 0
 }
 
+let playAreaSizeFactor = 10;
+
 let stars = [];
 let bullets = [];
 let asteroids = [];
@@ -19,7 +21,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight - 4);
 
   if (width > height) {
-    renderSpace = width *2;
+    renderSpace = width;
   } else {
     renderSpace = height;
   }
@@ -30,13 +32,14 @@ function setup() {
   ship = new Ship(0,0);
 
   //setup play area
-  playArea.top = height * -40;
-  playArea.bottom = height * 40;
-  playArea.left = width * -40;
-  playArea.right = width * 40;
+  playArea.top = renderSpace * -playAreaSizeFactor;
+  playArea.bottom = renderSpace * playAreaSizeFactor;
+  playArea.left = renderSpace * -playAreaSizeFactor;
+  playArea.right = renderSpace * playAreaSizeFactor;
 
+  let numOfStars = 40 * pow(playAreaSizeFactor,2);
 
-  for(let i = 0; i < 20000; i++) {
+  for(let i = 0; i < numOfStars; i++) {
     stars.push(createVector(
       random(playArea.left, playArea.right),
       random(playArea.top, playArea.bottom),
@@ -44,7 +47,9 @@ function setup() {
       ));
   }
 
-  for(let i = 0; i < 2000; i++) {
+  let numOfAsteroids = 5 * pow(playAreaSizeFactor,2);
+
+  for(let i = 0; i < numOfAsteroids ; i++ ) {
     generateRandomAsteroid();
   }
 
@@ -96,7 +101,7 @@ function draw() {
     if (d < renderSpace) {
       push();
       noFill();
-      stroke(100);
+      stroke(200);
       strokeWeight(star.z);
       point(star.x, star.y);
       pop();

@@ -2,7 +2,7 @@ const SHIP_THRUST = 1;
 const SHIP_MAX_THRUST = 1;
 const SHIP_MAX_SPEED = 100;
 const SHIP_SPIN_SPEED = 0.1;
-const SHIP_SIZE = 30;
+const SHIP_SIZE = 20;
 
 class Ship {
   constructor(x,y) {
@@ -86,13 +86,18 @@ class Ship {
       endShape();
     }
 
-    stroke(128);
+    //stroke(128);
+    noStroke();
     fill(255,105,180);
     beginShape();
     vertex(           0,-SHIP_SIZE);
     vertex(-SHIP_SIZE/2, SHIP_SIZE/2);
     vertex( SHIP_SIZE/2, SHIP_SIZE/2);
     endShape(CLOSE);
+
+    noFill();
+    stroke(255);
+    ellipse(0,0,SHIP_SIZE * 2,SHIP_SIZE * 2)
 
     pop();
 
