@@ -37,7 +37,7 @@ function setup() {
   playArea.left = renderSpace * -playAreaSizeFactor;
   playArea.right = renderSpace * playAreaSizeFactor;
 
-  let numOfStars = 40 * pow(playAreaSizeFactor,2);
+  let numOfStars = 40 * playAreaSizeFactor * playAreaSizeFactor;
 
   for(let i = 0; i < numOfStars; i++) {
     stars.push(createVector(
@@ -47,7 +47,7 @@ function setup() {
       ));
   }
 
-  let numOfAsteroids = 5 * pow(playAreaSizeFactor,2);
+  let numOfAsteroids = 5 * playAreaSizeFactor;
 
   for(let i = 0; i < numOfAsteroids ; i++ ) {
     generateRandomAsteroid();
@@ -145,8 +145,8 @@ function keyPressed(){
     case 189:
       targetZoom = 0.1;
       break;
-    case 32:
-    case SHIFT:
+    case 90:
+    case 88:
       ship.fire();
       break;
     default:

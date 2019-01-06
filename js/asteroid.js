@@ -85,12 +85,12 @@ function generateRandomAsteroid() {
     let attempts = 0;
     while(attempts < 1000) {
       attempts++;
-      let r = random(60, 1000);
+      let r = 250; //random(60, 250);
       let buffer = r * 2
       let x = random(playArea.left + buffer, playArea.right - buffer);
       let y = random(playArea.top + buffer, playArea.bottom - buffer);
-      let dx = random(-5, 5);
-      let dy = random(-5, 5);
+      let dx = random(-1, 1) * 4;
+      let dy = random(-1, 1) * 4;
       let d = dist(ship.pos.x, ship.pos.y, x, y);
       if (d > renderSpace) {
         asteroids.push(new Asteroid(x,y, dx,dy ,r));
